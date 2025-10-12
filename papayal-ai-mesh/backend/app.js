@@ -27,5 +27,5 @@ app.post('/api/donate', (req, res) => {
 
 // Iniciar servidor
 app.listen(PORT, () => {
-    console.log(`Servidor de Papayal Mesh corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor de Guajira Mesh corriendo en http://localhost:${PORT}`);
 });

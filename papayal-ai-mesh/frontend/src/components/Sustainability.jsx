@@ -7,7 +7,7 @@ function Sustainability() {
                 <h2 className="text-3xl font-extrabold sm:text-4xl text-cyan-300">Sostenibilidad con Energías Renovables</h2>
                 <p className="mt-4 text-lg text-gray-300">Nuestra red funciona 24/7 gracias al poder del sol.</p>
                 <div className="mt-10">
-                    <img src="/images/solar-panel.png" alt="Panel Solar alimentando un nodo de la red" className="mx-auto h-48 w-auto" />
+                    <img src="/paneles.png" alt="Panel Solar alimentando un nodo de la red" className="mx-auto h-48 w-auto" />
                 </div>
             </div>
         </section>

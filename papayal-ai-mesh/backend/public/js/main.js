@@ -91,6 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Animación de Carga/Inicio (Ejemplo)
     // Los títulos ya tienen animación CSS, pero aquí se podría añadir más lógica
-    console.log('Papayal Mesh UI inicializada.');
+    console.log('Guajira Mesh UI inicializada.');
 
 });

@@ -34,7 +34,7 @@ function ParaQue() {
                  <Feature 
                     icon="✅"
                     title="Verificación de Noticias y Trámites"
-                    description="Un portal local para consultar noticias verificadas por líderes comunitarios y acceder a versiones digitales de trámites municipales, reduciendo la necesidad de desplazamientos y combatiendo la desinformación."
+                    description="Un portal local para consultar noticias verificadas por líderes comunitarios y acceder a versiones digitales de trámites de la población guajira, reduciendo la necesidad de desplazamientos y combatiendo la desinformación."
                 />
                 </div>
             </div>

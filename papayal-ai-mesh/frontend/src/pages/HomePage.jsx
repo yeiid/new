@@ -13,7 +13,7 @@ function HomePage() {
                 <Problem />
                 <Solution />
                 <Sustainability />
-                <Donate />
+               <Donate />
             </main>
         </>
     );

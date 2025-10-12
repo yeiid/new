@@ -47,7 +47,7 @@ function ComoFunciona() {
                 <Step 
                     number="4"
                     title="El Usuario Final: Conexión Directa al Conocimiento"
-                    description="Finalmente, cualquier persona en el rango de un AP puede conectarse a la red Wi-Fi 'Papayal Mesh' desde su celular, tablet o computador. Al conectarse, acceden a todo el contenido del servidor de forma gratuita, rápida y segura, como si tuvieran internet, pero sin necesitarlo."
+                    description="Finalmente, cualquier persona en el rango de un AP puede conectarse a la red Wi-Fi 'Guajira Mesh' desde su celular, tablet o computador. Al conectarse, acceden a todo el contenido del servidor de forma gratuita, rápida y segura, como si tuvieran internet, pero sin necesitarlo."
                 />
             </div>
             </div>
