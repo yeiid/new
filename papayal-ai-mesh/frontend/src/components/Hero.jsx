@@ -4,7 +4,7 @@ function Hero() {
     return (
         <div className="relative bg-gray-800 text-white overflow-hidden">
             <div className="absolute inset-0">
-                <img src="/images/hero-bg.jpg" alt="Fondo de La Guajira" className="w-full h-full object-cover" />
+                <img src="/fondo.jpg" alt="Fondo de La Guajira" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black opacity-60"></div>
             </div>
             <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8 text-center">

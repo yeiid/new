@@ -22,6 +22,11 @@ function ComoFunciona() {
 
                 <MapaRed />
 
+                <div className="mb-12">
+                    <h2 className="text-3xl font-bold text-center mb-4 text-gray-900">Un Ejemplo Histórico: El Inicio de Internet y ARPANET</h2>
+                    <p className="text-lg text-center text-gray-600 max-w-4xl mx-auto">El internet moderno comenzó con ARPANET en 1969, una red experimental de cuatro computadoras en universidades de EE.UU. conectadas para compartir información de manera distribuida y resistente a fallos. Similarmente, Guajira Mesh crea una red local robusta para compartir conocimiento y energía renovable en La Guajira, adaptada a las necesidades de la comunidad.</p>
+                </div>
+
                 <div className="space-y-8">
                     <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">El Viaje de los Datos</h2>
                 <Step 
