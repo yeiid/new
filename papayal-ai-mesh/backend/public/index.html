@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papayal Mesh</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Papayal Mesh: Llevando Información Confiable y Energía a la Guajira.</h1>
+            <p>Empoderando a la Comunidad Wayuu contra la desinformación con tecnología local y energía renovable.</p>
+            <div class="animated-illustration">
+                <!-- Aquí irá la ilustración animada -->
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="problem" class="problem-section">
+            <h2>El Problema: Desinformación y Aislamiento</h2>
+            <p class="distorted-text">La falta de acceso a internet confiable y la creciente ola de desinformación generada por IA amenazan a las comunidades más vulnerables.</p>
+        </section>
+
+        <section id="solution" class="solution-section">
+            <h2>La Solución: Arquitectura Mesh y Contenido Local</h2>
+            <div class="mesh-diagram">
+                <div class="node server" data-info="Servidor Central (Raspberry Pi) - $500.000">Servidor</div>
+                <div class="line"></div>
+                <div class="node backhaul" data-info="Cableado Backhaul - Costo variable">Backhaul</div>
+                <div class="line"></div>
+                <div class="node ap" data-info="Nodo AP Exterior - $750.000">AP</div>
+                <div class="line"></div>
+                <div class="node user" data-info="Usuario Final">Usuario</div>
+            </div>
+            <p>Conectamos a la comunidad con "Noches de Películas" y "Verificación Municipal" para fortalecer el tejido social y combatir las noticias falsas.</p>
+        </section>
+
+        <section id="sustainability" class="sustainability-section">
+            <h2>Sostenibilidad con Energías Renovables</h2>
+            <div class="solar-node">
+                <img src="images/solar-panel.png" alt="Panel Solar" class="solar-panel-img">
+                <div class="power-text">Nodo alimentado por energía limpia, 24/7.</div>
+            </div>
+        </section>
+
+        <section id="donate" class="donate-section">
+            <h2>Tu Aporte Transforma la Guajira</h2>
+            <div id="donation-form-container">
+                <form id="donation-form">
+                    <div class="form-group">
+                        <label for="amount">Monto (COP)</label>
+                        <input type="number" id="amount" name="amount" placeholder="Ej: 50000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Email o WhatsApp</label>
+                        <input type="text" id="contact" name="contact" placeholder="tu@email.com" required>
+                    </div>
+                    <button type="submit" class="donate-button">Donar Ahora</button>
+                </form>
+            </div>
+            <div id="thank-you-message" class="hidden"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Papayal AI Mesh. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
