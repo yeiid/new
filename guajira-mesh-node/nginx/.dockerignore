@@ -1,0 +1,16 @@
+# VCS
+.git
+.gitignore
+
+# OS/editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Build outputs
+*.log
+
+# Docker
+Dockerfile
+.dockerignore

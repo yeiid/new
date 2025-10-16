@@ -1,0 +1,24 @@
+# VCS
+.git
+.gitignore
+
+# OS/editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log
+pnpm-lock.yaml
+
+# Build outputs (if any)
+dist/
+build/
+.tmp/
+
+# Docker
+Dockerfile
+.dockerignore
