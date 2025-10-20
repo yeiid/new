@@ -1,0 +1,5 @@
+---
+trigger: manual
+---
+
+./rules.md

@@ -1,19 +1,23 @@
 version: '3.8'
 
 services:
-  # 1. PROYECTO WEB (con tu propio build)
+  # 1. PROYECTO WEB (React con Vite)
   web:
-    build: 
+    build:
       context: ./mesh-frontend
       dockerfile: Dockerfile
-    container_name: mesh_web_server
-    volumes:
-      # Montar los PDFs para que estén disponibles a través de Nginx
-      - ./pdf:/usr/share/nginx/pdfs:ro
-      # Configuración de Nginx personalizada
-      - ./nginx/mesh.conf:/etc/nginx/conf.d/default.conf:ro
+      target: dev # Apunta a la etapa 'dev' del Dockerfile
+    container_name: mesh_web_server_dev
     ports:
+      # Puerto de Nginx para producción (si se usa)
       - "80:80"
+      # Puerto de Vite para desarrollo
+      - "5173:5173"
+    volumes:
+      # Monta el código fuente para la recarga en caliente
+      - ./mesh-frontend:/app
+      # Evita que la carpeta node_modules local sobrescriba la del contenedor
+      - /app/node_modules
     restart: unless-stopped
     networks:
       - guajira-net
@@ -24,6 +28,8 @@ services:
       context: ./pdf-manager
       dockerfile: Dockerfile
     container_name: pdf_manager_service
+    ports:
+      - "5000:5000"
     volumes:
       - ./pdf:/pdfs:ro
       - pdf_covers_cache:/covers
@@ -91,6 +97,39 @@ services:
     networks:
       - guajira-net
 
+  # 6. SERVICIO DE BACKEND (API para usuarios)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mesh_backend_api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/mydatabase
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - guajira-net
+
+  # 7. BASE DE DATOS (PostgreSQL)
+  db:
+    image: postgres:13
+    container_name: mesh_database
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - guajira-net
+
 # Red definida para que los contenedores puedan hablar entre sí
 networks:
   guajira-net:
@@ -101,3 +140,4 @@ volumes:
   jellyfin-config:
   portainer_data:
   pdf_covers_cache:
+  postgres_data:

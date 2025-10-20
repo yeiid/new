@@ -187,11 +187,15 @@
             const noResults = document.getElementById('no-results');
             let allFoldersData = [];
 
-            fetch('/documentos/api/pdfs')
+            fetch('/api/pdfs')
                 .then(response => response.json())
                 .then(data => {
                     allFoldersData = data;
                     renderFolders(allFoldersData);
+                })
+                .catch(error => {
+                    console.error('Error loading PDFs:', error);
+                    noResults.style.display = 'block';
                 });
 
             searchInput.addEventListener('input', (e) => {

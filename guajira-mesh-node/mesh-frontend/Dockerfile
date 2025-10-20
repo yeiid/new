@@ -1,23 +1,38 @@
-# 1. Fase de Construcción (si usas un framework como React/Vue)
-# FROM node:20 as builder
-# WORKDIR /app
-# COPY package*.json ./
-# RUN npm install
-# COPY . .
-# RUN npm run build  # Reemplaza 'npm run build' con tu comando de compilación
+# 1. Fase de Construcción
+# ---- Base Stage ----
+# Etapa para instalar dependencias
+FROM node:20-alpine AS base
+WORKDIR /app
+COPY package*.json ./
 
-# 2. Fase de Ejecución (Servir el contenido compilado)
-# Usamos una imagen de Nginx súper ligera (Alpine)
-FROM nginx:alpine
+# ---- Dependencies Stage ----
+# Etapa para instalar solo las dependencias
+FROM base AS dependencies
+RUN npm install
 
-# Copia la configuración personalizada de Nginx (si la necesitas)
-# COPY nginx.conf /etc/nginx/nginx.conf
+# ---- Development Stage ----
+# Etapa para el entorno de desarrollo
+FROM base AS dev
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY . .
+# Expone el puerto por defecto de Vite
+EXPOSE 5173
+# El comando para iniciar el servidor de desarrollo
+CMD ["npm", "run", "dev", "--", "--host"]
 
-# Copia el build de tu proyecto compilado a la ubicación de Nginx
-# Si no tienes fase de construcción, copia directamente tu HTML/CSS/JS aquí
-COPY ./public /usr/share/nginx/html
+# ---- Build Stage ----
+# Etapa para construir los archivos estáticos para producción
+FROM base AS build
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
 
-# El contenedor expone por defecto el puerto 80 (ya lo hace Nginx)
+# ---- Production Stage ----
+# Etapa final que sirve los archivos estáticos con Nginx
+FROM nginx:stable-alpine AS production
+# Copia los archivos estáticos construidos desde la etapa 'build'
+COPY --from=build /app/dist /usr/share/nginx/html
+# Copia la configuración de Nginx para que funcione con React Router
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
