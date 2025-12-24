@@ -70,7 +70,7 @@ const AdminForum = () => {
                       <div className="text-sm text-gray-500">{post.commentsCount || 0}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(post.createdAt).toLocaleDateString()}
+                      {new Date(post.created_at || post.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <button className="text-gray-600 hover:text-gray-900 mr-3">

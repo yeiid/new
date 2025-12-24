@@ -57,7 +57,7 @@ const ForumPost = () => {
   return (
     <div className="space-y-6">
       <button
-        onClick={() => navigate('/forum')}
+        onClick={() => navigate('/dashboard/forum')}
         className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
       >
         <ArrowLeft size={20} />
@@ -73,7 +73,7 @@ const ForumPost = () => {
           </div>
           <div className="flex items-center space-x-2">
             <Calendar size={16} />
-            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+            <span>{new Date(post.created_at || post.createdAt).toLocaleDateString()}</span>
           </div>
         </div>
         <div className="prose max-w-none">
@@ -110,7 +110,7 @@ const ForumPost = () => {
                 <User size={14} />
                 <span className="font-medium">{comment.author?.name || 'Usuario'}</span>
                 <span>•</span>
-                <span>{new Date(comment.createdAt).toLocaleDateString()}</span>
+                <span>{new Date(comment.created_at || comment.createdAt).toLocaleDateString()}</span>
               </div>
               <p className="text-gray-700">{comment.content}</p>
             </div>

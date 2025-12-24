@@ -1,7 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { authService } from '../services/authService'
-
-const AuthContext = createContext(null)
+import { AuthContext } from './authContext'
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -14,11 +13,19 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem('token')
         if (token) {
           const userData = await authService.validateToken(token)
-          setUser(userData)
+          if (userData && userData.id) {
+            setUser(userData)
+          } else {
+            // Invalid or expired token
+            console.log('Invalid or expired token')
+            localStorage.removeItem('token')
+            setUser(null)
+          }
         }
       } catch (error) {
         console.error('Auth check failed:', error)
         localStorage.removeItem('token')
+        setUser(null)
       } finally {
         setLoading(false)
       }
@@ -63,12 +70,4 @@ export const AuthProvider = ({ children }) => {
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
-
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-  return context
 }

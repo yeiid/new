@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
-import { useAuth } from './context/AuthContext'
+import { useAuth } from './hooks/useAuth'
 
 // Pages
 import Landing from './pages/Landing'
@@ -14,6 +14,7 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminUsers from './pages/admin/AdminUsers'
 import AdminForum from './pages/admin/AdminForum'
 import AdminInfo from './pages/admin/AdminInfo'
+import Profile from './pages/Profile'
 
 // Layout
 import MainLayout from './components/layout/MainLayout'
@@ -62,6 +63,7 @@ function App() {
             }
           >
             <Route index element={<Home />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="forum" element={<Forum />} />
             <Route path="forum/:postId" element={<ForumPost />} />
             <Route path="info" element={<Info />} />

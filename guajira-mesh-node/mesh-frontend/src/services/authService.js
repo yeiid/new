@@ -12,10 +12,18 @@ export const authService = {
   },
 
   async validateToken(token) {
-    const response = await api.get('/auth/validate', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    return response.data
+    try {
+      const response = await api.get('/auth/validate', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (response.data && response.data.user) {
+        return response.data.user
+      }
+      throw new Error('Invalid response from server')
+    } catch (error) {
+      console.error('Token validation error:', error)
+      throw error
+    }
   },
 
   async logout() {

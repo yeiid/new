@@ -1,13 +1,25 @@
-import { useState } from 'react'
+import { useState,useEffect} from 'react'
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
-import { Home, MessageSquare, Info, LogOut, Shield, Menu, X } from 'lucide-react'
+import { useAuth } from '../../hooks/useAuth'
+import { Home, MessageSquare, Info, LogOut, Shield, Menu, X, ArrowRight, Clock } from 'lucide-react'
 
 const MainLayout = () => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [sessionTime, setSessionTime] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => setSessionTime(t => t + 1), 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60).toString().padStart(2, '0')
+    const secs = (seconds % 60).toString().padStart(2, '0')
+    return `${mins}:${secs}`
+  }
 
   const handleLogout = () => {
     logout()
@@ -45,11 +57,10 @@ const MainLayout = () => {
                   <Link
                     key={path}
                     to={path}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                      isActive(path)
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                    }`}
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive(path)
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                      }`}
                   >
                     <Icon size={18} />
                     <span>{label}</span>
@@ -60,7 +71,12 @@ const MainLayout = () => {
 
             {/* Desktop User Menu */}
             <div className="hidden md:flex items-center space-x-3">
-              <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2 px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium text-gray-500 mr-2">
+                <Clock size={14} />
+                <span>{formatTime(sessionTime)}</span>
+              </div>
+
+              <Link to="/dashboard/profile" className="flex items-center space-x-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
                 <div className="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
                   <span className="text-white text-sm font-semibold">
                     {(user?.name || user?.email)?.charAt(0).toUpperCase()}
@@ -70,11 +86,11 @@ const MainLayout = () => {
                   <p className="font-medium text-gray-900">{user?.name || user?.email}</p>
                   {user?.role === 'admin' && (
                     <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
-                      Administrador
+                      Admin
                     </span>
                   )}
                 </div>
-              </div>
+              </Link>
 
               {user?.role === 'admin' && (
                 <Link
@@ -112,7 +128,11 @@ const MainLayout = () => {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
+            <div className="md:hidden flex items-center space-x-4">
+              <div className="flex items-center space-x-1 px-2 py-1 bg-gray-100 rounded-lg text-xs font-medium text-gray-500">
+                <Clock size={14} />
+                <span>{formatTime(sessionTime)}</span>
+              </div>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-lg text-gray-600 hover:bg-gray-100"
@@ -132,11 +152,10 @@ const MainLayout = () => {
                   key={path}
                   to={path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                    isActive(path)
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${isActive(path)
+                    ? 'bg-blue-50 text-blue-700'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                 >
                   <Icon size={20} />
                   <span>{label}</span>
@@ -144,7 +163,11 @@ const MainLayout = () => {
               ))}
 
               <div className="pt-3 border-t">
-                <div className="flex items-center space-x-3 px-4 py-3 bg-gray-50 rounded-lg mb-2">
+                <Link
+                  to="/dashboard/profile"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center space-x-3 px-4 py-3 bg-gray-50 rounded-lg mb-2"
+                >
                   <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
                     <span className="text-white font-semibold">
                       {(user?.name || user?.email)?.charAt(0).toUpperCase()}
@@ -152,11 +175,9 @@ const MainLayout = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">{user?.name || user?.email}</p>
-                    {user?.role === 'admin' && (
-                      <span className="text-xs text-blue-600">Administrador</span>
-                    )}
+                    <p className="text-xs text-gray-500">Ver mi perfil</p>
                   </div>
-                </div>
+                </Link>
 
                 {user?.role === 'admin' && (
                   <Link

@@ -1,5 +1,5 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../hooks/useAuth'
 import { LayoutDashboard, Users, MessageSquare, Info, ArrowLeft, LogOut, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
@@ -67,7 +67,7 @@ const AdminLayout = () => {
 
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto custom-scrollbar">
-            {navItems.map(({ path, label, icon: Icon, exact }) => {
+            {navItems.map(({ path, label, icon: Icon, exact }) => { // eslint-disable-line no-unused-vars
               const active = exact ? location.pathname === path : isActive(path)
               return (
                 <Link

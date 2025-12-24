@@ -1,7 +1,18 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { MessageSquare, Info, Users, Shield, ArrowRight, CheckCircle, Wifi } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
 
 const Landing = () => {
+  const { user, loading } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!loading && user) {
+      navigate('/dashboard')
+    }
+  }, [user, loading, navigate])
+
   const features = [
     {
       icon: MessageSquare,
